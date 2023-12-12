@@ -76,5 +76,43 @@ def game_start():
                     elif event.key == pygame.K_RIGHT:
                         new_x1 = snake_block
                         new_y1 = 0 
+                         elif event.key == pygame.K_UP:
+                        new_y1 = -snake_block
+                        new_x1 = 0
+                    elif event.key == pygame.K_DOWN:
+                        new_y1 = snake_block
+                        new_x1 = 0
+            if value_x1>= box_len or value_x1<0 or value_y1>= box_height or value_y1<0:
+                game_close = True
+
+            value_x1 = value_x1+new_x1
+            value_y1 = value_y1+new_y1
+            add_caption.fill(colour_6)
+            pygame.draw.rectangle(add_caption, coulour_5,[foodx_pos,foody_pos,snake_block,snake_block])
+            snake_head = []
+            snake_head.append(value_x1)
+            snake_head.append(value_y1)
+            list_snake.append(snake_head)
+            if len(list_snake) > snake_len:
+                del list_snake[0]
+            for x in list_snake[:-1]:
+                if x==snake_head:
+                    game_close = True
+            pygame.display.update()
+
+            if value_x1 == food_pos and value_y1 == food_pos:
+                foodx_pos = round(random.randrange(0, box_len-snake_block))
+                foody_pos = round(random.randrange(0, box_height-snake_block))
+                snake_len = snake_len+1
+
+            timer.tick(snake_speed)
+
+        pygame.quit()
+        quit()
+game_start()
+
+    
+
+
                     
 
